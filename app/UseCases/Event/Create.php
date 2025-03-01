@@ -9,8 +9,8 @@ class Create
 {
     public function __construct(
         private EventRepository $eventRepository
-    )
-    { }
+    ) { }
+
 
     public function execute(EventInput $input)
     {

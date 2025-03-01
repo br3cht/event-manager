@@ -16,7 +16,7 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(optional(auth()->user())->role != RoleEnum::Admin->value) {
+        if(optional(auth()->user())->hasRole(RoleEnum::Admin->value)) {
             return $next($request);
         }
 

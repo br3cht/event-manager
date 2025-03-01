@@ -29,14 +29,19 @@ class EventRepository
 
     public function update(Event $event,EventInput $input): void
     {
-        $event->update([
-            'status' => EventStatus::Open,
+        $dataUpdate = [
             'titulo' => $input->title ?? $event->title,
             'descricao' => $input->description,
             'localizacao' => $input->location ?? $event->location,
             'capacidade_maxima' => $input->capacity ?? $event->capacity,
             'inicio' => $input->start ?? $event->start,
             'final' => $input->end ?? $event->end
-        ]);
+        ];
+
+        if(!empty($input->status)) {
+            $dataUpdate['status'] = $input->status;
+        }
+
+        $event->update($dataUpdate);
     }
 }
