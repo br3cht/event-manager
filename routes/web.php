@@ -22,3 +22,5 @@ Route::get('/', function () {
 Route::get('/events', [EventController::class, 'index']);
 Route::post('/events/create', [EventController::class,'store'])->middleware(AdminMiddleware::class);
 Route::put('/events/edit/{event}', [EventController::class,'update'])->middleware(AdminMiddleware::class);
+Route::delete('/events/delete/{event}', [EventController::class, 'delete'])->middleware(['auth', AdminMiddleware::class]);
+Route::post('/events/subscribe/{event}', [EventController::class, 'subscribe'])->middleware('auth');
