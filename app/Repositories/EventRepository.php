@@ -11,7 +11,7 @@ class EventRepository
 {
     public function index()
     {
-        return Event::pagineted(10);
+        return Event::paginate(10);
     }
 
     public function store(EventInput $input): void

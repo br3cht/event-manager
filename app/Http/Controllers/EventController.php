@@ -9,14 +9,23 @@ use App\Http\Requests\UpdateEventRequest;
 use App\Models\Event;
 use App\UseCases\Event\Create;
 use App\UseCases\Event\Edit;
+use App\UseCases\Event\Index;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 class EventController extends Controller
 {
+    public function subscribe(Event $event)
+    {
+        return response()->json(['message' => 'Inscricao realizada com sucesso'], 200);
+    }
+
     public function index(Request $request)
     {
-        return view('event.index');
+        $user = resolve(Index::class);
+        $events = $user->execute();
+
+        return view('event.index', ['events' => $events]);
     }
 
     public function store(StoreEventRequest $request)
@@ -63,5 +72,12 @@ class EventController extends Controller
     public function edit()
     {
         return view('event.edit');
+    }
+
+    public function delete(Request $request, Event $event)
+    {
+        $event->delete();
+
+        return redirect('/events');
     }
 }
