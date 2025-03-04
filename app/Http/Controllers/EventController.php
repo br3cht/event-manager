@@ -4,20 +4,40 @@ namespace App\Http\Controllers;
 
 use App\DTO\Event\EventInput;
 use App\Enum\EventStatus;
+use App\Exceptions\CapacityReachedException;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use App\Models\Event;
 use App\UseCases\Event\Create;
 use App\UseCases\Event\Edit;
 use App\UseCases\Event\Index;
+use App\UseCases\Event\Subscribe;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 class EventController extends Controller
 {
-    public function subscribe(Event $event)
+    public function subscribe(Request $request,Event $event)
     {
-        return response()->json(['message' => 'Inscricao realizada com sucesso'], 200);
+        try {
+            $use = resolve(Subscribe::class);
+            $user = $request->user();
+
+            $use->execute($event, $user);
+
+            return response()->json(['message' => 'Inscricao realizada com sucesso'], 200);
+        } catch (CapacityReachedException $exception) {
+
+            return response()->json(['message' => 'Capacidade Maxima Atingida'], 400);
+        } catch(Exception $exception){
+            Log::error($exception->getMessage(), [
+                $exception->getTraceAsString()
+            ]);
+
+            return response()->json(['message' => 'Erro de Servidor'], 500);
+        }
     }
 
     public function index(Request $request)

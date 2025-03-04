@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\DTO\Event\EventInput;
 use App\Enum\EventStatus;
 use App\Models\Event;
+use App\Models\Participant;
 use App\Models\User;
 
 class EventRepository
@@ -43,5 +44,23 @@ class EventRepository
         }
 
         $event->update($dataUpdate);
+    }
+
+    public function subscribe(Event $event, User $user): void
+    {
+        Participant::create([
+            'user_id' => $user->id,
+            'event_id' => $event->id
+        ]);
+    }
+
+    public function validateIfUserIsParticipant(Event $event, User $user): bool
+    {
+        return Participant::where('event_id', $event->id)->where('user_id', $user->id)->exists();
+    }
+
+    public function validateCapacity(Event $event): bool
+    {
+        return Participant::where('event_id', $event->id)->count() >= $event->capacidade_maxima;
     }
 }
