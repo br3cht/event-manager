@@ -33,5 +33,5 @@ Route::middleware([
 ])->group(function () {
     Route::get('/eventos', function(){
         return view('events');
-    })->name('eventos');
+    })->name('eventos')->middleware(AdminMiddleware::class);
 });
