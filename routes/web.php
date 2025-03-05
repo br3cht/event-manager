@@ -25,3 +25,13 @@ Route::put('/events/edit/{event}', [EventController::class,'update'])->middlewar
 Route::delete('/events/delete/{event}', [EventController::class, 'delete'])->middleware(['auth', AdminMiddleware::class]);
 Route::post('/events/subscribe/{event}', [EventController::class, 'subscribe'])->middleware('auth');
 Route::put('/events/cancel-subscription/{event}', [EventController::class, 'cancelSubscribe'])->middleware('auth');
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified',
+])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+});
