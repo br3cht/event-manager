@@ -8,6 +8,7 @@ use App\Exceptions\CapacityReachedException;
 use App\Http\Requests\StoreEventRequest;
 use App\Http\Requests\UpdateEventRequest;
 use App\Models\Event;
+use App\UseCases\Event\CancelSubscription;
 use App\UseCases\Event\Create;
 use App\UseCases\Event\Edit;
 use App\UseCases\Event\Index;
@@ -19,7 +20,7 @@ use Symfony\Component\HttpKernel\Event\ResponseEvent;
 
 class EventController extends Controller
 {
-    public function subscribe(Request $request,Event $event)
+    public function subscribe(Request $request, Event $event)
     {
         try {
             $use = resolve(Subscribe::class);
@@ -31,13 +32,23 @@ class EventController extends Controller
         } catch (CapacityReachedException $exception) {
 
             return response()->json(['message' => 'Capacidade Maxima Atingida'], 400);
-        } catch(Exception $exception){
+        } catch (Exception $exception) {
             Log::error($exception->getMessage(), [
                 $exception->getTraceAsString()
             ]);
 
             return response()->json(['message' => 'Erro de Servidor'], 500);
         }
+    }
+
+    public function cancelSubscribe(Request $request, Event $event)
+    {
+        $use = resolve(CancelSubscription::class);
+        $user = $request->user();
+
+        $use->execute($event, $user);
+
+        return response()->json(['message' => 'Inscricao cancelada com sucesso'], 200);
     }
 
     public function index(Request $request)
@@ -84,7 +95,7 @@ class EventController extends Controller
             status: $eventStatus,
         );
 
-        $use->execute($event,$input);
+        $use->execute($event, $input);
 
         return response()->json(['message' => 'evento Atualizado com sucesso'], 200);
     }

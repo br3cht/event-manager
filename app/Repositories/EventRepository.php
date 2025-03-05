@@ -16,8 +16,7 @@ class EventRepository
     }
 
     public function store(EventInput $input): void
-    {
-         Event::create([
+    { Event::create([
             'status' => EventStatus::Open,
             'titulo' => $input->title,
             'descricao' => $input->description,
@@ -48,10 +47,12 @@ class EventRepository
 
     public function subscribe(Event $event, User $user): void
     {
-        Participant::create([
-            'user_id' => $user->id,
-            'event_id' => $event->id
-        ]);
+        $event->users()->attach($user->id);
+    }
+
+    public function cancelSubscribe(Event $event, User $user): void
+    {
+        $event->users()->detach($user->id);
     }
 
     public function validateIfUserIsParticipant(Event $event, User $user): bool
