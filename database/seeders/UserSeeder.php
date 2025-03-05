@@ -18,10 +18,10 @@ class UserSeeder extends Seeder
             return;
         }
 
-        $user = User::factory()->create();
+        $user = User::factory()->state(['email' => 'admin@example.com'])->create();
         $user->assignRole(RoleEnum::Admin->value);
 
-        $user = User::factory()->create();
+        $user = User::factory()->state(['email' => 'user@example.com'])->create();
         $user->assignRole(RoleEnum::User->value);
     }
 }
