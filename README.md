@@ -1,30 +1,50 @@
-Antes de executar o projeto, certifique-se de ter o Docker instalado na sua máquina. Você pode baixar e instalar o Docker aqui.
 
-Execução do Projeto
+## Pré-requisitos
+
+Antes de executar o projeto, certifique-se de ter o Docker instalado na sua máquina. Você pode baixar e instalar o Docker [aqui](https://www.docker.com/get-started).
+
+## Execução do Projeto
+
 Siga os passos abaixo para executar o projeto:
 
-Copie o arquivo de exemplo de configuração:
+1. Copie o arquivo de exemplo de configuração:
 
-cp .env.example .env
-Ou, se preferir, copie o arquivo e renomeie-o:
+   ```bash
+   cp .env.example .env
+   ```
 
-# Copie manualmente .env.example para .env e faça as alterações necessárias
-Crie as imagens do Docker:
+   Ou, se preferir, copie o arquivo e renomeie-o:
 
-docker-compose build
-Inicie os contêineres em segundo plano:
+   ```bash
+   # Copie manualmente .env.example para .env e faça as alterações necessárias
+   ```
 
-docker-compose up -d
-rode o comando para entrar no docker
+2. Crie as imagens do Docker:
 
-docker-compose exec app sh
-e em seguida quando entrar no
+   ```bash
+   docker-compose build
+   ```
 
-php artisan key:generate 
-Acesse o aplicativo em seu navegador através da URL http://localhost.
+3. Inicie os contêineres em segundo plano:
 
-#Caso, a porta 80 estiver em uso podera ser trocada manualmente no .env DOCKER_HTTP_PORT
+   ```bash
+   docker-compose up -d
+   ```
 
+4. rode o comando para entrar no docker  
+   ```bash
+   docker-compose exec app sh
+   ```
+    e em seguida quando entrar no
+   ```bash
+   php artisan key:generate 
+   ```
+
+
+5. Acesse o aplicativo em seu navegador através da URL [http://localhost](http://localhost).
+   ```bash
+   #Caso, a porta 80 estiver em uso podera ser trocada manualmente no .env DOCKER_HTTP_PORT
+   ```
 
 ## Contributing
 
@@ -41,4 +61,3 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-
