@@ -4,6 +4,7 @@ namespace App\UseCases\Event;
 
 use App\Models\Event;
 use App\Models\User;
+use App\Notifications\CancelSubscribeEvent;
 use App\Repositories\EventRepository;
 
 class CancelSubscription
@@ -19,5 +20,7 @@ class CancelSubscription
         }
 
         $this->eventRepository->cancelSubscribe($event, $user);
+
+        $user->notify(new CancelSubscribeEvent($event));
     }
 }

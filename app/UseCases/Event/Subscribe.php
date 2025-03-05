@@ -7,6 +7,7 @@ use App\Events\Event\CapacityReachedEvent;
 use App\Exceptions\CapacityReachedException;
 use App\Models\Event;
 use App\Models\User;
+use App\Notifications\SubscribeEvent;
 use App\Repositories\EventRepository;
 use App\Services\EventService;
 
@@ -26,5 +27,7 @@ class Subscribe
         }
 
         $this->eventRepository->subscribe($event, $user);
+
+        $user->notify(new SubscribeEvent($event));
     }
 }
