@@ -8,11 +8,13 @@ use Livewire\Component;
 
 class Events extends Component
 {
+    public $eventId;
     public $isOpen = false;
     public $isOpenRegister = false;
 
-    public function openModal()
+    public function openModal(int $id)
     {
+        $this->eventId = $id;
         $this->isOpen = true;
     }
 
@@ -27,9 +29,9 @@ class Events extends Component
         $this->isOpenRegister = false;
     }
 
-    public function subscribe(int $id)
+    public function subscribe()
     {
-        $event = Event::find($id);
+        $event = Event::find($this->eventId);
         $user = auth()->user();
 
         $subscribe = resolve(Subscribe::class);

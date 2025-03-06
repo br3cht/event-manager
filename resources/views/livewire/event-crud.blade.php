@@ -16,7 +16,6 @@
             @include('livewire.event-create')
         @endif
     </div>
-
     @if(!empty($events))
         <table class="table-auto w-full mt-4">
             <thead>

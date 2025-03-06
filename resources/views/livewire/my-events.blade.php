@@ -4,6 +4,12 @@
         <h1 class="text-3xl font-semibold text-gray-800">Eventos</h1>
     </div>
 
+    @auth
+        @if($isOpen)
+            @include('livewire.cancelSubscription')
+        @endif
+    @endauth
+
     @if(!empty($events))
        @foreach($events as $event)
         <!-- Lista de Eventos -->
@@ -22,7 +28,9 @@
                 <p class="text-gray-600">{{$event->localizacao}}</p>
                 <p class="text-gray-600 text-sm mt-2">{{$event->descricao}}</p> <!-- Descrição do Evento -->
                 <div class="mt-4">
-                    <button class="bg-red-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition">
+                    <button
+                        wire:click="openModal({{$event->id}})"
+                        class="bg-red-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition">
                         Cancelar Inscrição
                     </button>
                 </div>

@@ -1,7 +1,12 @@
 <?php
 
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\Web\AuthController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Livewire\Events;
+use App\Livewire\Home;
+use App\Livewire\MyEvents;
+use App\Livewire\Register;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,10 +20,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 // Route::get('/events', [EventController::class, 'index']);
 // Route::post('/events/create', [EventController::class, 'store'])->middleware(AdminMiddleware::class);
 // Route::put('/events/edit/{event}', [EventController::class, 'update'])->middleware(AdminMiddleware::class);
@@ -31,7 +32,14 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/eventos', function(){
+    Route::get('/admin/eventos', function () {
         return view('events');
     })->name('eventos')->middleware(AdminMiddleware::class);
 });
+
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::get('/', Events::class)->name('home');
+Route::get('/meus-eventos', MyEvents::class)->name('meus-eventos');
+Route::get('/register', Register::class)->name('registrar');

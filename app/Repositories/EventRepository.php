@@ -11,8 +11,7 @@ use App\Models\User;
 class EventRepository
 {
     public function index()
-    {
-        return Event::paginate(10);
+    { return Event::paginate(10);
     }
 
     public function store(EventInput $input): void
@@ -43,6 +42,13 @@ class EventRepository
         }
 
         $event->update($dataUpdate);
+    }
+
+    public function updateStatus(Event $event, EventStatus $status): void
+    {
+        $event->update([
+            'status' => $status->value
+        ]);
     }
 
     public function subscribe(Event $event, User $user): void

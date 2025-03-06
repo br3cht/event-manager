@@ -26,6 +26,11 @@ class Subscribe
             throw new CapacityReachedException();
         }
 
+        if($this->eventRepository->validateIfUserIsParticipant($event, $user)) {
+            return;
+        }
+
+
         $this->eventRepository->subscribe($event, $user);
 
         $user->notify(new SubscribeEvent($event));

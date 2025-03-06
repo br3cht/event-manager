@@ -36,17 +36,15 @@
                         <span class="bg-green-200 text-green-800 text-sm font-medium py-1 px-3 rounded-full">{{$event->status}}</span>
                     @else
                         <span class="bg-green-200 text-red-800 text-sm font-medium py-1 px-3 rounded-full">{{$event->status}}</span>
-
                     @endif
                 </div>
-                <p class="text-gray-600">{{$event->inicio}}</p>
                 <p class="text-gray-600">{{$event->localizacao}}</p>
-                <p class="text-gray-600 text-sm mt-2">{{$event->descricao}}</p> <!-- Descrição do Evento -->
-               <!-- Botão de Inscrição -->
+                <p class="text-gray-600">{{$event->inicio}}</p>
+                <p class="text-gray-600 text-sm mt-2">{{$event->descricao}}</p>
                 @if($event->status == 'open')
                     <div class="mt-4">
                         <button
-                        wire:click.prevent="openModal()"
+                        wire:click="openModal({{$event->id}})"
                         class="bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition">
                             Inscrever-se
                         </button>

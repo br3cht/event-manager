@@ -20,7 +20,7 @@ class EventCrud extends Component
 
     public function render()
     {
-        $events = Event::paginate();
+        $events = Event::where('status' == EventStatus::Open->value)->paginate();
         $eventStatus = $this->getEnumStatus();
 
         return view('livewire.event-crud', ['events' => $events, 'eventsStatus' => $eventStatus]);
