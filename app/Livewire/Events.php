@@ -9,15 +9,22 @@ use Livewire\Component;
 class Events extends Component
 {
     public $isOpen = false;
+    public $isOpenRegister = false;
 
     public function openModal()
     {
         $this->isOpen = true;
     }
 
+    public function openModalRegister()
+    {
+        $this->isOpenRegister = true;
+    }
+
     public function closeModal()
     {
         $this->isOpen = false;
+        $this->isOpenRegister = false;
     }
 
     public function subscribe(int $id)
