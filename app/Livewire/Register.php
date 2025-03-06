@@ -2,12 +2,13 @@
 
 namespace App\Livewire;
 
+use App\Enum\RoleEnum;
 use App\Models\User;
 use Livewire\Component;
 
 class Register extends Component
 {
-    public $name, $email, $password, $passwordConfirmation;
+    public $name, $email, $password, $password_confirmation;
 
     public function registerUser()
     {
@@ -15,6 +16,7 @@ class Register extends Component
             'name' => 'required',
             'email' => 'required|email',
             'password' => 'required|confirmed',
+
         ]);
 
         $user = User::create([
@@ -22,6 +24,8 @@ class Register extends Component
             'email' => $this->email,
             'password' => bcrypt($this->password),
         ]);
+
+        $user->assignRole(RoleEnum::User->value);
 
         auth()->login($user);
 
