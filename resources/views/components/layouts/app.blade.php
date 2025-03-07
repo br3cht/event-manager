@@ -28,9 +28,15 @@
                         @auth
                             <!-- Botão Meus Eventos -->
                             <a href="{{ route('meus-eventos') }}"
-                               class="bg-purple-600 text-white px-4 py-2 rounded-lg hover:bg-purple-700 transition-all">
+                               class="text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all">
                                 Meus eventos
                             </a>
+                            @can('admin-access')
+                                <a href="{{ route('eventos') }}"
+                                   class="text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all">
+                                   Dashboard
+                                </a>
+                            @endcan
                             <div class="relative group">
                                 <!-- Nome do usuário -->
                                 <button class="flex items-center space-x-2 text-white font-medium hover:text-gray-600">
