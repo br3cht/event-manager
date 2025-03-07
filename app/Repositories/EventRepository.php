@@ -7,6 +7,7 @@ use App\Enum\EventStatus;
 use App\Models\Event;
 use App\Models\Participant;
 use App\Models\User;
+use Illuminate\Support\Collection;
 
 class EventRepository
 {
@@ -15,7 +16,8 @@ class EventRepository
     }
 
     public function store(EventInput $input): void
-    { Event::create([
+    {
+        Event::create([
             'status' => EventStatus::Open,
             'titulo' => $input->title,
             'descricao' => $input->description,
@@ -69,5 +71,10 @@ class EventRepository
     public function validateCapacity(Event $event): bool
     {
         return Participant::where('event_id', $event->id)->count() >= $event->capacidade_maxima;
+    }
+
+    public function getEventsNeedFinished(): Collection
+    {
+        return Event::where('final', '<', now())->get();
     }
 }
