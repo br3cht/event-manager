@@ -2,6 +2,7 @@
 
 namespace App\Listeners;
 
+use App\Repositories\EventRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
@@ -18,8 +19,10 @@ class ChangeStatusEvent
     /**
      * Handle the event.
      */
-    public function handle(object $event): void
+    public function handle(object $object): void
     {
-        //
+        $event = $object->event;
+        $repository = resolve(EventRepository::class);
+        $repository->updateStatus($event, $object->status);
     }
 }

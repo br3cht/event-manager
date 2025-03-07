@@ -21,7 +21,7 @@ class EventFactory extends Factory
             'status' => EventStatus::Open->value,
             'titulo' => fake()->name(),
             'descricao' => fake()->text(),
-            'localizacao' => fake()->text(),
+            'localizacao' => fake()->address(),
             'capacidade_maxima' => fake()->randomNumber(),
             'inicio' => fake()->dateTime(),
             'final' => fake()->dateTime(),

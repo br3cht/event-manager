@@ -7,16 +7,17 @@ use App\Enum\EventStatus;
 use App\Models\Event;
 use App\Models\Participant;
 use App\Models\User;
+use Illuminate\Support\Collection;
 
 class EventRepository
 {
     public function index()
-    {
-        return Event::paginate(10);
+    { return Event::paginate(10);
     }
 
     public function store(EventInput $input): void
-    { Event::create([
+    {
+        Event::create([
             'status' => EventStatus::Open,
             'titulo' => $input->title,
             'descricao' => $input->description,
@@ -45,6 +46,13 @@ class EventRepository
         $event->update($dataUpdate);
     }
 
+    public function updateStatus(Event $event, EventStatus $status): void
+    {
+        $event->update([
+            'status' => $status->value
+        ]);
+    }
+
     public function subscribe(Event $event, User $user): void
     {
         $event->users()->attach($user->id);
@@ -63,5 +71,10 @@ class EventRepository
     public function validateCapacity(Event $event): bool
     {
         return Participant::where('event_id', $event->id)->count() >= $event->capacidade_maxima;
+    }
+
+    public function getEventsNeedFinished(): Collection
+    {
+        return Event::where('final', '<', now())->get();
     }
 }
