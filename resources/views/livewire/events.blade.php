@@ -79,6 +79,10 @@
                 @endif
             </div>
        @endforeach
+          <!-- Paginação -->
+    <div class="mt-4">
+        {{ $events->links() }}
+    </div>
     @endif
 </div>
 
