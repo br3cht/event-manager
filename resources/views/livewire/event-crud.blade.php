@@ -23,6 +23,11 @@
     @if($openParticpants)
      @include('livewire.components.eventCrud.listParticipants')
     @endif
+
+    @if($openDelete)
+     @include('livewire.components.eventCrud.deleteEvent')
+    @endif
+
     @if(!empty($events))
        @foreach($events as $event)
         <div id="eventos-lista" class="space-y-4">
@@ -39,15 +44,22 @@
                 <p class="text-gray-600">{{$event->inicio}}</p>
                 <p class="text-gray-600 text-sm mt-2">{{$event->descricao}}</p>
                 <div class="mt-4">
-                    <button wire:click="showInscriptions({{$event->id}})" class="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 shadow-md ">
+                    <button wire:click="showInscriptions({{$event->id}})" class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-600 shadow-md ">
                         Visualizar Inscrições
                     </button>
                 </div>
                 <div class="mt-4">
                     <button
                     wire:click="edit({{$event->id}})"
-                    class="bg-blue-500 text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-600 transition">
+                    class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition">
                         Editar
+                    </button>
+                </div>
+                <div class="mt-4">
+                    <button
+                    wire:click="showDelete({{$event->id}})"
+                    class="bg-red-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-red-600 transition">
+                        Deletar
                     </button>
                 </div>
             </div>

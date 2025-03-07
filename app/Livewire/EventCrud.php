@@ -19,6 +19,7 @@ class EventCrud extends Component
 
     public $isOpen = false;
     public $openParticpants = false;
+    public $openDelete = false;
     public $participants;
 
     public function render()
@@ -76,6 +77,18 @@ class EventCrud extends Component
         $this->openParticpants = false;
 
         return;
+    }
+
+    public function showDelete(int $event)
+    {
+        $this->openDelete = true;
+        $this->event_id = $event;
+    }
+
+    public function closeDelete()
+    {
+        $this->event_id = null;
+        $this->openDelete = false;
     }
 
 
@@ -159,5 +172,11 @@ class EventCrud extends Component
         $use = resolve(Edit::class);
         $use->execute(Event::find($this->event_id), $input);
         $this->closeModal();
+    }
+
+    public function delete()
+    {
+        Event::find($this->event_id)->delete();
+        $this->closeDelete();
     }
 }
