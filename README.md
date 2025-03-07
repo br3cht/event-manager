@@ -44,8 +44,10 @@ Abra o navegador e acesse a aplicação através do link:
 
 Caso a porta 80 já esteja em uso, altere-a no arquivo `.env` na variável `DOCKER_HTTP_PORT`.
 
-## 📬 Acessar mensagens enviadas
-Para visualizar as mensagens enviadas pelo sistema, acesse: 🔗 http://localhost:8025
+## 📬  Acessar mensagens enviadas
+Para visualizar as mensagens enviadas pelo sistma acesse:  🔗 http://localhost:8025
+
+
 ---
 
 ## 🔑 Credenciais de Acesso
