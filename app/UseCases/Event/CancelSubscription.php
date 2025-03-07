@@ -27,7 +27,9 @@ class CancelSubscription
 
         $valiadateCapacity = $this->eventRepository->validateCapacity($event);
         if(!$valiadateCapacity) {
-            event(new CapacityReachedEvent($event, EventStatus::Open));
+            if($event->status == EventStatus::Closed->value) {
+                event(new CapacityReachedEvent($event, EventStatus::Open));
+            }
         }
 
         $user->notify(new CancelSubscribeEvent($event));
