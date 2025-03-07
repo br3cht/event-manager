@@ -1,63 +1,62 @@
+# 📌 Guia de Instalação e Execução
 
-## Pré-requisitos
+## ✅ Pré-requisitos
+Antes de executar o projeto, certifique-se de ter o **Docker** instalado em sua máquina. Você pode baixar e instalar o Docker através do link abaixo:
 
-Antes de executar o projeto, certifique-se de ter o Docker instalado na sua máquina. Você pode baixar e instalar o Docker [aqui](https://www.docker.com/get-started).
+🔗 [Instalar Docker](https://www.docker.com/get-started)
 
-## Execução do Projeto
+---
 
-Siga os passos abaixo para executar o projeto:
+## 🚀 Execução do Projeto
+Siga os passos abaixo para configurar e executar o projeto corretamente:
 
-1. Copie o arquivo de exemplo de configuração:
+### 1️⃣ Copiar o arquivo de configuração
+Copie o arquivo `.env.example` para `.env`:
+```bash
+cp .env.example .env
+```
+Ou, se preferir, crie e edite manualmente o arquivo `.env` com as configurações necessárias.
 
-   ```bash
-   cp .env.example .env
-   ```
+### 2️⃣ Criar as imagens do Docker
+Execute o seguinte comando para construir as imagens do Docker:
+```bash
+docker-compose build
+```
 
-   Ou, se preferir, copie o arquivo e renomeie-o:
+### 3️⃣ Iniciar os contêineres
+Suba os contêineres em segundo plano:
+```bash
+docker-compose up -d
+```
 
-   ```bash
-   # Copie manualmente .env.example para .env e faça as alterações necessárias
-   ```
+### 4️⃣ Configurar a aplicação
+Acesse o contêiner da aplicação:
+```bash
+docker-compose exec app sh
+```
+Dentro do contêiner, gere a chave da aplicação Laravel:
+```bash
+php artisan key:generate
+```
 
-2. Crie as imagens do Docker:
+### 5️⃣ Acessar a aplicação
+Abra o navegador e acesse a aplicação através do link:
+🔗 [http://localhost](http://localhost)
 
-   ```bash
-   docker-compose build
-   ```
+Caso a porta 80 já esteja em uso, altere-a no arquivo `.env` na variável `DOCKER_HTTP_PORT`.
 
-3. Inicie os contêineres em segundo plano:
+---
 
-   ```bash
-   docker-compose up -d
-   ```
+## 🔑 Credenciais de Acesso
 
-4. rode o comando para entrar no docker  
-   ```bash
-   docker-compose exec app sh
-   ```
-    e em seguida quando entrar no
-   ```bash
-   php artisan key:generate 
-   ```
+### 👤 Administrador:
+- **E-mail:** `admin@example.com`
+- **Senha:** `password`
 
+### 👤 Usuário comum:
+- **E-mail:** `user@example.com`
+- **Senha:** `password`
 
-5. Acesse o aplicativo em seu navegador através da URL [http://localhost](http://localhost).
-   ```bash
-   #Caso, a porta 80 estiver em uso podera ser trocada manualmente no .env DOCKER_HTTP_PORT
-   ```
+---
 
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Agora sua aplicação está configurada e pronta para uso! 🚀
