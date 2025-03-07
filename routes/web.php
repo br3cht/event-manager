@@ -3,6 +3,7 @@
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\Web\AuthController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Livewire\Auth\Login;
 use App\Livewire\Events;
 use App\Livewire\Home;
 use App\Livewire\MyEvents;
@@ -37,7 +38,6 @@ Route::middleware([
     })->name('eventos')->middleware(AdminMiddleware::class);
 });
 
-Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/', Events::class)->name('home');
