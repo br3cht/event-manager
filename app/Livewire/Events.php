@@ -22,6 +22,10 @@ class Events extends Component
 
     public function openModal(int $id)
     {
+        if(!auth()->user()){
+            return redirect('/login');
+        }
+
         $this->eventId = $id;
         $this->isOpen = true;
     }
