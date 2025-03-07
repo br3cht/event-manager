@@ -3,11 +3,14 @@
 namespace Tests\Feature\Event;
 
 use App\Enum\RoleEnum;
+use App\Events\Event\CapacityReachedEvent;
+use App\Livewire\Events;
 use App\Models\Event;
 use App\Models\Participant;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class SubscribeTest extends TestCase
@@ -25,18 +28,22 @@ class SubscribeTest extends TestCase
 
     public function test_subscribe_event(): void
     {
-        $this->actingAs($this->user)
-            ->post('/events/subscribe/' . $this->event->id)
-            ->assertStatus(200);
+        Livewire::actingAs($this->user)
+            ->test(Events::class, ['eventId' => $this->event->id])
+            ->call('subscribe');
+
+        $this->assertDatabaseCount('participants', 1);
     }
 
     public function test_subscribe_event_error_capacity(): void
     {
-        $this->actingAs($this->user)
-            ->post('/events/subscribe/' . $this->event->id);
+        Livewire::actingAs($this->user)
+            ->test(Events::class, ['eventId' => $this->event->id])
+            ->call('subscribe');
 
-        $this->actingAs($this->user)
-            ->post('/events/subscribe/' . $this->event->id)
-            ->assertStatus(400);
+        Livewire::actingAs($this->user)
+            ->test(Events::class, ['eventId' => $this->event->id])
+            ->call('subscribe')
+            ->assertSet('openMessageError', true);
     }
 }

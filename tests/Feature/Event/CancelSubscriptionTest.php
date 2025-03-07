@@ -3,10 +3,13 @@
 namespace Tests\Feature\Event;
 
 use App\Enum\RoleEnum;
+use App\Livewire\Events;
+use App\Livewire\MyEvents;
 use App\Models\Event;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Livewire\Livewire;
 use Tests\TestCase;
 
 class CancelSubscriptionTest extends TestCase
@@ -25,8 +28,12 @@ class CancelSubscriptionTest extends TestCase
     public function test_cancel_subscription()
     {
         $this->event->users()->attach($this->user->id);
-        $response = $this->actingAs($this->user)->put('/events/cancel-subscription/' . $this->event->id);
 
-        $response->assertStatus(200);
+        Livewire::actingAs($this->user)
+        ->test(MyEvents::class)
+        ->call('openModal', $this->event->id)
+        ->call('cancelSubscription');
+
+        $this->assertDatabaseCount('participants', 0);
     }
 }
