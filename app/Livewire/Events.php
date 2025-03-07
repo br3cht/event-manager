@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Enum\EventStatus;
+use App\Enum\RoleEnum;
 use App\Exceptions\CapacityReachedException;
 use App\Models\Event;
 use App\UseCases\Event\Subscribe;
@@ -19,6 +20,23 @@ class Events extends Component
     public $isOpen = false;
     public $isOpenRegister = false;
     public $openMessageError = false;
+
+    public function mount()
+    {
+        if ($this->redirectToDashboard()) {
+            return redirect()->route('eventos');
+        }
+    }
+
+    private  function redirectToDashboard()
+    {
+        $user = auth()->user();
+        if(empty($user)){
+            return false;
+        }
+        $role = $user->roles->first()->name;
+        return $role == RoleEnum::Admin->value;
+    }
 
     public function openModal(int $id)
     {
@@ -60,8 +78,11 @@ class Events extends Component
 
     public function render()
     {
-        $events = Event::paginate(5);
+        if($this->redirectToDashboard()){
+            return redirect('eventos');
+        }
 
+        $events = Event::paginate(5);
         return view('livewire.events', ['events' => $events]);
     }
 }
