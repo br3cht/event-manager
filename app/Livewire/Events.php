@@ -3,7 +3,7 @@
 namespace App\Livewire;
 
 use App\Enum\EventStatus;
-use App\Events\Event\CapacityReachedEvent;
+use App\Exceptions\CapacityReachedException;
 use App\Models\Event;
 use App\UseCases\Event\Subscribe;
 use Exception;
@@ -52,7 +52,7 @@ class Events extends Component
             $subscribe->execute($event, $user);
 
             $this->closeModal();
-        } catch (CapacityReachedEvent $exception) {
+        } catch (CapacityReachedException $exception) {
             $this->closeModal();
             $this->openMessageError = true;
         }
