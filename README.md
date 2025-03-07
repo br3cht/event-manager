@@ -6,7 +6,6 @@ Antes de executar o projeto, certifique-se de ter o **Docker** instalado em sua 
 🔗 [Instalar Docker](https://www.docker.com/get-started)
 
 ---
-
 ## 🚀 Execução do Projeto
 Siga os passos abaixo para configurar e executar o projeto corretamente:
 
@@ -45,6 +44,8 @@ Abra o navegador e acesse a aplicação através do link:
 
 Caso a porta 80 já esteja em uso, altere-a no arquivo `.env` na variável `DOCKER_HTTP_PORT`.
 
+## 📬 Acessar mensagens enviadas
+Para visualizar as mensagens enviadas pelo sistema, acesse: 🔗 http://localhost:8025
 ---
 
 ## 🔑 Credenciais de Acesso
