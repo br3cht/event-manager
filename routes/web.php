@@ -33,9 +33,9 @@ Route::middleware([
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/admin/eventos', function () {
-        return view('events');
-    })->name('eventos')->middleware(AdminMiddleware::class);
+    Route::get('/dashboard', function(){
+        return view('dashboard');
+    })->middleware(AdminMiddleware::class);
 });
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
