@@ -82,7 +82,7 @@ class Events extends Component
             return redirect('eventos');
         }
 
-        $events = Event::paginate(5);
+        $events = Event::where('status', EventStatus::Open->value)->paginate(5);
         return view('livewire.events', ['events' => $events]);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\DTO\Event\EventInput;
 use App\Enum\EventStatus;
 use App\Models\Event;
+use App\Models\User;
 use App\UseCases\Event\Create;
 use App\UseCases\Event\Edit;
 use Carbon\Carbon;
@@ -17,6 +18,9 @@ class EventCrud extends Component
         $event_id;
 
     public $isOpen = false;
+    public $openParticpants = false;
+    public $openDelete = false;
+    public $participants;
 
     public function render()
     {
@@ -59,6 +63,34 @@ class EventCrud extends Component
     {
         $this->isOpen = false;
     }
+
+    public function showInscriptions(int $event)
+    {
+        $this->openParticpants = true;
+        $this->participants = User::whereHas('events', function($q) use($event){
+            return $q->where('event_id', $event);
+        })->get();
+    }
+
+    public function closeInscriptions()
+    {
+        $this->openParticpants = false;
+
+        return;
+    }
+
+    public function showDelete(int $event)
+    {
+        $this->openDelete = true;
+        $this->event_id = $event;
+    }
+
+    public function closeDelete()
+    {
+        $this->event_id = null;
+        $this->openDelete = false;
+    }
+
 
     private function resetInputFields()
     {
@@ -140,5 +172,11 @@ class EventCrud extends Component
         $use = resolve(Edit::class);
         $use->execute(Event::find($this->event_id), $input);
         $this->closeModal();
+    }
+
+    public function delete()
+    {
+        Event::find($this->event_id)->delete();
+        $this->closeDelete();
     }
 }

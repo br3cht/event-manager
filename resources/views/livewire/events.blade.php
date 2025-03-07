@@ -1,5 +1,4 @@
 <div class="container mx-auto mt-8">
-    <!-- Cabeçalho -->
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-semibold text-gray-800">Eventos</h1>
 
@@ -48,7 +47,6 @@
 
     @if(!empty($events))
        @foreach($events as $event)
-        <!-- Lista de Eventos -->
         <div id="eventos-lista" class="space-y-4">
             <div class="event-card bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition">
                 <div class="flex justify-between items-center mb-2">
@@ -79,7 +77,6 @@
                 @endif
             </div>
        @endforeach
-          <!-- Paginação -->
     <div class="mt-4">
         {{ $events->links() }}
     </div>
