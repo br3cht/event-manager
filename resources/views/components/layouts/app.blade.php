@@ -20,9 +20,9 @@
 
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            <header class="bg-white shadow py-2">
+            <header class="bg-black shadow py-2">
                 <div class="container mx-auto px-4 flex justify-between items-center">
-                    <a href="{{ route('home') }}" class="text-2xl font-bold text-gray-900">Loja Online</a>
+                    <a href="{{ route('home') }}" class="text-2xl font-bold text-white">Event System</a>
 
                     <div class="flex space-x-4 items-center">
                         @auth
@@ -33,7 +33,7 @@
                             </a>
                             <div class="relative group">
                                 <!-- Nome do usuário -->
-                                <button class="flex items-center space-x-2 text-gray-900 font-medium hover:text-gray-600">
+                                <button class="flex items-center space-x-2 text-white font-medium hover:text-gray-600">
                                     <span>{{ Auth::user()->name }}</span>
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                          xmlns="http://www.w3.org/2000/svg">
@@ -42,21 +42,19 @@
                                     </svg>
                                 </button>
 
-                                <!-- Dropdown de Logout -->
                                 <div class="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                                     <form action="{{ route('logout') }}" method="POST">
                                         @csrf
                                         <button type="submit"
-                                                class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-red-600 hover:text-white rounded-lg transition-all">
+                                                class="block w-full text-left px-4 py-2 text-gray-700 hover:bg-blue-600 hover:text-white rounded-lg transition-all">
                                             Logout
                                         </button>
                                     </form>
                                 </div>
                             </div>
                         @else
-                            <!-- Botões de Login e Registrar -->
                             <a href="{{ route('login') }}"
-                               class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all">
+                               class="text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-all">
                                 Login
                             </a>
 
